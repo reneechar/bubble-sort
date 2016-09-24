@@ -1,5 +1,6 @@
 let updates = {};
 let updatesKey = 1;
+let passNum;
 
 
 function compare(a,b) {
@@ -15,15 +16,14 @@ function compare(a,b) {
 
 function bubSort(unsortedArr) {
 	let swaps = 1;
-	let passNum = 1;
+	passNum = 1;
 
 	let currentArr = unsortedArr;
 	while(swaps > 0) {
-		//print pass #
 		
 		swaps = 0;
 		let atIndex = 0;
-		unsortedArr = unsortedArr.reduce((newArr, num) => {
+		currentArr = currentArr.reduce((newArr, num) => {
 			updates[updatesKey] = 'current array: '+ '[' + currentArr + '].<br>';
 			if (newArr.length ===0) {
 				newArr.push(num);
@@ -57,7 +57,7 @@ function bubSort(unsortedArr) {
 		},[]);
 		passNum++;
 	}
-	return unsortedArr;
+	return currentArr;
 }
 
 let theRoot = document.getElementById('root');
@@ -69,10 +69,12 @@ intialArr = intialArr.split(' ');
 console.log('intialArr: ',intialArr);
 
 let display = document.createElement('div');
-display.innerHTML = 'this will contain what the current array looks like';
+display.innerHTML = 'Click Next to start!';
 theRoot.appendChild(display);
 
 
+
+let finalArr = bubSort(intialArr);
 
 let eachUpdate = 1;
 
@@ -82,12 +84,20 @@ moveToNext.addEventListener('click', () => {
 	//print out the current array
 	//print out which two elements are being compared
 	//print out if an element has been swapped
-	display.innerHTML = updates[eachUpdate];
-	eachUpdate++;
+	if(updates[eachUpdate] === undefined) {
+		display.innerHTML = 'initial array was: [' + intialArr +'].<br>' + 'final sorted array: [' + finalArr + '].<br>'
+		if(passNum > 2) {
+			display.innerHTML += (passNum - 1) + ' passes were made.';
+		} else {
+			display.innerHTML += (passNum - 1) + ' pass was made.';
+		}
+	} else {
+		display.innerHTML = updates[eachUpdate];
+		eachUpdate++;
+	}
 });
 theRoot.appendChild(moveToNext);
 
-let finalArr = bubSort(intialArr);
 
 console.log('finalArr', finalArr);
 console.log('updates object',updates);
