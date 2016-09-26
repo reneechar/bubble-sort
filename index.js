@@ -1,37 +1,31 @@
 
 let index = 0;
 
-function bubSortOneSwap(unsortedArr) {
+function bubSortOneSwap(unsortedArr,startIndex) {
+	let arrayAfterOneSwap = unsortedArr.map(element => {
+		return element;
+	});
 
-	for (var i = index; i < unsortedArr.length - 1; i++) {
-		if (unsortedArr[i] > unsortedArr[i+1]){
-			let big = unsortedArr[i];
-			unsortedArr[i] = unsortedArr[i+1];
-			unsortedArr[i+1] = big;
-			console.log('index bub',index);
-			return unsortedArr;
+	for (var i = startIndex; i < arrayAfterOneSwap.length - 1; i++) {
+		if (arrayAfterOneSwap[i] > arrayAfterOneSwap[i+1]){
+			let big = arrayAfterOneSwap[i];
+			arrayAfterOneSwap[i] = arrayAfterOneSwap[i+1];
+			arrayAfterOneSwap[i+1] = big;
+			return [arrayAfterOneSwap,i];
 		}
-		index++;
 	}
-	index = 0;
 	return false;
 }
 
 function isSorted(arr) {
-	index = 0;
-	if(bubSortOneSwap(arr)) {
-		index--;
+	if(bubSortOneSwap(arr, 0)) {
 		return false;
 	} else {
-		index--;
 		return true;
 	}
 }
 
-
-
 let displayBox = document.getElementById('displayBox');
-
 let buttonBar = document.getElementById('buttonBar');
 
 let bubSortButton = document.createElement('button');
@@ -58,7 +52,7 @@ reset.addEventListener('click',()=> {
 		let bar = document.createElement('div');
 		bar.style.height = Math.floor(Math.random()*10+1)*39 +'px';
 		bar.style.width = '40px';
-		bar.id = i+1 + ''; //edited this
+		bar.id = i+1 + ''; 
 		idArr.push(parseFloat(bar.style.height.substring(0,bar.style.height.length-2)));
 		bar.style.backgroundColor = 'blue';
 		displayBox.appendChild(bar);
@@ -71,7 +65,7 @@ for (var i = 0; i < amountOfBars; i++) {
 	let bar = document.createElement('div');
 	bar.style.height = Math.floor(Math.random()*10+1)*39 +'px';
 	bar.style.width = '40px';
-	bar.id = i + 1 + '' ; //edited this
+	bar.id = i + 1 + '' ; 
 	idArr.push(parseFloat(bar.style.height.substring(0,bar.style.height.length-2)));
 	bar.style.backgroundColor = 'blue';
 	displayBox.appendChild(bar);
@@ -87,8 +81,17 @@ bubSortButton.addEventListener('click', () => {
 		if(isSorted(idArr)) {
 			clearInterval(bSortTracker);
 		}
-		idArr = bubSortOneSwap(idArr);
-		console.log('bubble sorting here',idArr);
+		let currentPlaceArr = bubSortOneSwap(idArr,index);
+		if(currentPlaceArr === false) {
+			index = 0;
+			currentPlaceArr = bubSortOneSwap(idArr,index);
+		}
+		idArr = currentPlaceArr[0];
+		console.log('bubble sorting here, idArr',idArr);
+
+		index = currentPlaceArr[1];
+		console.log('bubble sorting here, index',index);
+
 		for (var i = 0; i < amountOfBars; i++) {
 			let temp = document.getElementById(i+1+'');
 			temp.style.height = idArr[i] + 'px';
