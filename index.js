@@ -29,13 +29,15 @@ let displayBox = document.getElementById('displayBox');
 let buttonBar = document.getElementById('buttonBar');
 
 let bubSortButton = document.createElement('button');
+bubSortButton.id = 'bubble';
 bubSortButton.innerHTML = 'Bubble Sort';
 bubSortButton.style.margin = 'auto';
 buttonBar.appendChild(bubSortButton);
 
 
 let reset = document.createElement('button');
-reset.innerHTML = 'RESET';
+reset.innerHTML = 'Reset';
+reset.id = 'reset';
 reset.style.margin = 'auto';
 buttonBar.appendChild(reset);
 
@@ -54,7 +56,6 @@ reset.addEventListener('click',()=> {
 		bar.style.width = '40px';
 		bar.id = i+1 + ''; 
 		idArr.push(parseFloat(bar.style.height.substring(0,bar.style.height.length-2)));
-		bar.style.backgroundColor = 'blue';
 		displayBox.appendChild(bar);
 	}
 	console.log('idArr after', idArr);
@@ -67,13 +68,11 @@ for (var i = 0; i < amountOfBars; i++) {
 	bar.style.width = '40px';
 	bar.id = i + 1 + '' ; 
 	idArr.push(parseFloat(bar.style.height.substring(0,bar.style.height.length-2)));
-	bar.style.backgroundColor = 'blue';
 	displayBox.appendChild(bar);
 }
 
 
 console.log('idArr', idArr);
-
 
 bubSortButton.addEventListener('click', () => {
 	let bSortTracker = setInterval(() =>{

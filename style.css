@@ -1,15 +1,18 @@
 #displayBox {
 	width: 500px;
 	height: 400px;
-	background-color: pink; 
-	border: 1px solid green;
+	background-color: #ffe6e6; 
+	border: 3px solid #ff80aa;
 	margin: auto;
+	position: relative;
 }
 
 #displayBox div {
 	margin: 5px;
 	display: inline-block;
-
+	background: url(https://s-media-cache-ak0.pinimg.com/originals/3b/94/aa/3b94aab01413d0862e29a09fc7dbc605.jpg) ;
+	background-size: 40px 80px;
+	background-repeat:repeat-y;
 }
 
 #buttonBar {
@@ -20,8 +23,36 @@
 button {
 	display: inline-block;
 	margin: auto;
+	border-radius: 50%;
+	border: 2px solid #ff80aa;
+	color: #604020;
+	padding: 3px;
+	font-size:  20px;
+	font-family: 'Indie Flower', cursive;
+	width: 100px;
+	height: 100px;
+	background: white;
+}
+
+button:hover {
+	box-shadow:  5px 5px 5px #888888;
+	transform: scale(1.1);
+	transition-duration: .3s;
+}
+
+#bubble : active {
+
 }
 
 h1 {
+	color: #604020;
 	text-align: center;
+	background: white;
+	width: 100%;
+	border: 3px solid #ff80aa;
+}
+
+body {
+	background: url(https://cutekawaiiresources.files.wordpress.com/2013/03/rilakkuma_wallpaper_by_iriname-d5msrev.jpg) no-repeat center center fixed;
+	font-family: 'Indie Flower', cursive;
 }
