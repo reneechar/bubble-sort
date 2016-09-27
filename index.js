@@ -8,10 +8,11 @@ function bubSortOneSwap(unsortedArr,startIndex) {
 
 	for (var i = startIndex; i < arrayAfterOneSwap.length - 1; i++) {
 		if (arrayAfterOneSwap[i] > arrayAfterOneSwap[i+1]){
+
 			let big = arrayAfterOneSwap[i];
 			arrayAfterOneSwap[i] = arrayAfterOneSwap[i+1];
 			arrayAfterOneSwap[i+1] = big;
-			return [arrayAfterOneSwap,i];
+			return [arrayAfterOneSwap,i+1];
 		}
 	}
 	return false;
@@ -41,38 +42,31 @@ reset.id = 'reset';
 reset.style.margin = 'auto';
 buttonBar.appendChild(reset);
 
-let idArr = [];
-
-let amountOfBars = 10;
-
+let idArr = createUniqueBars();
+console.log('initial idArr',idArr)
 reset.addEventListener('click',()=> {
 	while(displayBox.firstChild) {
 		displayBox.removeChild(displayBox.firstChild);
 	}
-	idArr = [];
-	for (var i = 0; i < amountOfBars; i++) {
+	idArr = createUniqueBars();
+
+	for (var i = 0; i < idArr.length; i++) {
 		let bar = document.createElement('div');
-		bar.style.height = Math.floor(Math.random()*10+1)*39 +'px';
+		bar.style.height = idArr[i] + 'px';
 		bar.style.width = '40px';
-		bar.id = i+1 + ''; 
-		idArr.push(parseFloat(bar.style.height.substring(0,bar.style.height.length-2)));
+		bar.id = i + ''; 
 		displayBox.appendChild(bar);
 	}
-	console.log('idArr after', idArr);
 });
 
 //initial onload displayBox
-for (var i = 0; i < amountOfBars; i++) {
+for (var i = 0; i < idArr.length; i++) {
 	let bar = document.createElement('div');
-	bar.style.height = Math.floor(Math.random()*10+1)*39 +'px';
+	bar.style.height = idArr[i] +'px';
 	bar.style.width = '40px';
-	bar.id = i + 1 + '' ; 
-	idArr.push(parseFloat(bar.style.height.substring(0,bar.style.height.length-2)));
+	bar.id = i + '' ; 
 	displayBox.appendChild(bar);
 }
-
-
-console.log('idArr', idArr);
 
 bubSortButton.addEventListener('click', () => {
 	let bSortTracker = setInterval(() =>{
@@ -80,25 +74,41 @@ bubSortButton.addEventListener('click', () => {
 		if(isSorted(idArr)) {
 			clearInterval(bSortTracker);
 		}
+
 		let currentPlaceArr = bubSortOneSwap(idArr,index);
+
 		if(currentPlaceArr === false) {
 			index = 0;
 			currentPlaceArr = bubSortOneSwap(idArr,index);
 		}
 		idArr = currentPlaceArr[0];
-		console.log('bubble sorting here, idArr',idArr);
-
 		index = currentPlaceArr[1];
-		console.log('bubble sorting here, index',index);
-
-		for (var i = 0; i < amountOfBars; i++) {
-			let temp = document.getElementById(i+1+'');
+		for (var i = 0; i < idArr.length; i++) {
+			let temp = document.getElementById(i+'');
 			temp.style.height = idArr[i] + 'px';
 		}
-
 		},1000);
 });
 
 
+//create randomized array of heights
+function createUniqueBars() {
+	let initialArrHts = [];
+	for (var i = 1; i < 11; i++) {
+		initialArrHts.push(i*39);
+	}
+
+	function shuffle(a) {
+	    var j, x, i;
+	    for (i = a.length; i; i--) {
+	        j = Math.floor(Math.random() * i);
+	        x = a[i - 1];
+	        a[i - 1] = a[j];
+	        a[j] = x;
+	    }
+	    return a;
+	}
+	return shuffle(initialArrHts);
+}
 
 

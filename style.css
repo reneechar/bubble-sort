@@ -22,7 +22,7 @@
 
 button {
 	display: inline-block;
-	margin: auto;
+	margin: 5px;
 	border-radius: 50%;
 	border: 2px solid #ff80aa;
 	color: #604020;
@@ -40,9 +40,6 @@ button:hover {
 	transition-duration: .3s;
 }
 
-#bubble : active {
-
-}
 
 h1 {
 	color: #604020;
